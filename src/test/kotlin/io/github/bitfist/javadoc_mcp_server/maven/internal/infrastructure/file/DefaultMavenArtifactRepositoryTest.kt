@@ -1,11 +1,16 @@
 package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.file
 
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
+import io.github.bitfist.javadoc_mcp_server.maven.MavenRepositories
+import io.github.bitfist.javadoc_mcp_server.maven.MavenRepository
 import io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.eclipse.AetherMavenArtifacts
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.mockito.Mockito.`when`
+import org.mockito.kotlin.mock
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -13,11 +18,13 @@ import kotlin.test.assertTrue
 @DisplayName("🔧 DefaultMavenArtifactRepository Tests")
 class DefaultMavenArtifactRepositoryTest {
 
-    private val repository: AetherMavenArtifacts = AetherMavenArtifacts()
+    private val mavenRepositories = mock<MavenRepositories>()
 
-    @AfterEach
-    fun tearDown() {
-        // Cleanup is handled by the repository's temp directory
+    private val repository: AetherMavenArtifacts = AetherMavenArtifacts(mavenRepositories)
+
+    @BeforeEach
+    fun setup() {
+        `when`(mavenRepositories.getAll()).thenReturn(emptyList())
     }
 
     @Test
