@@ -170,6 +170,7 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 
 - [ ] Add native support
   - Right now Flexmark does not cooperate
+- [ ] Release Container Image
 
 ## 📧 Contact
 
