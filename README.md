@@ -56,16 +56,6 @@ models to understand and explain Java APIs.
    java -jar target/javadoc-mcp-server-*.jar
    ```
 
-### Configuration
-
-Configure the local repository path in `application.yml`:
-
-```properties
-javadoc-mcp.local-repository=/path/to/your/javadoc/cache
-```
-
-Default location: `~/.javadoc-mcp/repository`
-
 ## 🔧 How It Works
 
 ### 1. Tool Invocation
@@ -152,6 +142,11 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 - 📦 Eclipse Aether for robust Maven artifact resolution
 - 📝 Flexmark for reliable HTML to Markdown conversion
 - 🤖 MCP Protocol for standardizing AI assistant interactions
+
+## ✅ Todo
+
+- [ ] Implement configuration options (eg additional repositories)
+- [ ] Add proper container support (init.d folder where repository configuration can be placed)
 
 ## 📧 Contact
 

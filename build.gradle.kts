@@ -9,23 +9,30 @@ plugins {
     idea
 }
 
+// region Setup
+
 group = "io.github.bitfist"
 version = "0.0.1-SNAPSHOT"
 description = "MCP Server for Javadoc"
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
 }
+
+extra["springAiVersion"] = "1.0.3"
+extra["springModulithVersion"] = "1.4.3"
+
+// endregion
+
+// region Build
 
 repositories {
     mavenLocal()
 	mavenCentral()
 }
-
-extra["springAiVersion"] = "1.0.3"
-extra["springModulithVersion"] = "1.4.3"
 
 dependencies {
     // region BOMs
@@ -64,10 +71,9 @@ dependencies {
     // endregion
 }
 
-idea {
-    module {
-        isDownloadJavadoc = true
-        isDownloadSources = true
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -77,10 +83,17 @@ kotlin {
 	}
 }
 
+tasks.bootBuildImage {
+    environment.put("BPE_SPRING_PROFILES_ACTIVE", "container")
+}
+
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+// endregion
+
+// region Release
 
 gitHubRelease {
     projectName.set("JCEF Spring Boot Starter")
@@ -90,3 +103,5 @@ gitHubRelease {
     license.set("The Apache License, Version 2.0")
     licenseUri.set(URI("https://www.apache.org/licenses/LICENSE-2.0"))
 }
+
+// endregion

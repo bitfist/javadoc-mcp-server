@@ -1,6 +1,5 @@
 package io.github.bitfist.javadoc_mcp_server.javadoc.internal.infrastructure.file
 
-import io.github.bitfist.javadoc_mcp_server.JavadocMcpConfiguration
 import io.github.bitfist.javadoc_mcp_server.javadoc.JavadocProvider
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
 import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactRepository
@@ -16,7 +15,7 @@ import kotlin.io.path.readText
 @Component
 private class DefaultJavadocProvider(
     private val mavenArtifactRepository: MavenArtifactRepository,
-    private val javaDocMcpConfiguration: JavadocMcpConfiguration
+    private val configurationProperties: JavadocProviderConfigurationProperties
 ) : JavadocProvider {
 
     override fun getJavadoc(
@@ -24,7 +23,7 @@ private class DefaultJavadocProvider(
         fullyQualifiedClassName: String
     ): String {
         val artifactFolder = Paths.get(
-            javaDocMcpConfiguration.localRepository,
+            configurationProperties.repositoryPath,
             artifactCoordinates.groupId,
             artifactCoordinates.artifactId,
             artifactCoordinates.version
