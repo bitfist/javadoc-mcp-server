@@ -9,7 +9,7 @@ import org.springframework.ai.tool.annotation.ToolParam
 import org.springframework.stereotype.Service
 
 @Service
-private class JavadocTool(private val javaDocProvider: JavadocProvider) : ToolProvider {
+internal class JavadocTool(private val javadocProvider: JavadocProvider) : ToolProvider {
 
     private val html2markdownConverter = FlexmarkHtmlConverter.builder().build()
 
@@ -17,13 +17,13 @@ private class JavadocTool(private val javaDocProvider: JavadocProvider) : ToolPr
         name = "javadoc",
         description = "Get JavaDoc for a given artifact coordinates and fully qualified class name"
     )
-    fun getJavaDoc(
+    fun getJavadoc(
         @ToolParam(description = "Maven Group ID") groupId: String,
         @ToolParam(description = "Maven Artifact ID") artifactId: String,
         @ToolParam(description = "Maven Artifact Version") version: String,
         @ToolParam(description = "Fully qualified name of the class the JavaDoc should be retrieved for") fullyQualifiedClassName: String
     ): String {
-        val html = javaDocProvider.getJavadoc(ArtifactCoordinates(groupId, artifactId, version), fullyQualifiedClassName)
+        val html = javadocProvider.getJavadoc(ArtifactCoordinates(groupId, artifactId, version), fullyQualifiedClassName)
         return html2markdownConverter.convert(html)
     }
 

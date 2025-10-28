@@ -11,6 +11,7 @@ import org.eclipse.aether.impl.DefaultServiceLocator
 import org.eclipse.aether.repository.LocalRepository
 import org.eclipse.aether.repository.RemoteRepository
 import org.eclipse.aether.resolution.ArtifactRequest
+import org.eclipse.aether.resolution.ArtifactResolutionException
 import org.eclipse.aether.resolution.ArtifactResult
 import org.eclipse.aether.spi.connector.RepositoryConnectorFactory
 import org.eclipse.aether.spi.connector.transport.TransporterFactory
@@ -24,7 +25,7 @@ import java.io.File
 import java.nio.file.Files
 
 @Repository
-private class DefaultMavenArtifactRepository : MavenArtifactRepository {
+internal class DefaultMavenArtifactRepository : MavenArtifactRepository {
 
     private val localRepositoryDirectory: File = Files.createTempDirectory("maven-javadoc").toFile()
     private val system: RepositorySystem = newRepositorySystem()
@@ -46,14 +47,14 @@ private class DefaultMavenArtifactRepository : MavenArtifactRepository {
         val javadocArtifact = DefaultArtifact("$groupId:$artifactId:jar:javadoc:$version")
         val request = ArtifactRequest(javadocArtifact, repositories, null)
 
-        val result: ArtifactResult = system.resolveArtifact(session, request)
+        try {
+            val result: ArtifactResult = system.resolveArtifact(session, request)
 
-        if (result.isMissing) {
-            throw IllegalStateException("Javadoc JAR not found for $groupId:$artifactId:$version")
+            val file = result.artifact.file
+            return file
+        } catch (e: ArtifactResolutionException) {
+            throw IllegalArgumentException("Javadoc JAR not found for $groupId:$artifactId:$version")
         }
-
-        val file = result.artifact.file
-        return file
     }
 
     private fun newRepositorySystem(): RepositorySystem {

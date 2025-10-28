@@ -42,7 +42,7 @@ private class DefaultJavadocProvider(
         val javaDocFile = artifactFolder.resolve("$packagePath/$simpleClassName.html")
 
         if (!javaDocFile.exists()) {
-            return "JavaDoc not found for class $fullyQualifiedClassName in artifact $artifactCoordinates"
+            return "Javadoc not found for class $fullyQualifiedClassName in artifact $artifactCoordinates"
         }
 
         return javaDocFile.readText()

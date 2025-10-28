@@ -37,4 +37,30 @@ private class DefaultJavadocProviderTest {
         assertThat(javaDoc).doesNotStartWith("JavaDoc not found for class")
     }
 
+    @Test
+    fun testWithInvalidCoordinates() {
+        // given
+        val artifactCoordinates = ArtifactCoordinates("org.jspecify", "jspecify", "1.0.0")
+        val file = "org.jspecify.annotations.Nullable"
+
+        // when
+        val javaDoc = target.getJavadoc(artifactCoordinates, file)
+
+        // then
+        assertThat(javaDoc).doesNotStartWith("JavaDoc not found for class")
+    }
+
+    @Test
+    fun testWithValidArtifactAndInvalidFile() {
+        // given
+        val artifactCoordinates = ArtifactCoordinates("org.jspecify", "jspecify", "1.0.0")
+        val file = "org.jspecify.annotations.blah"
+
+        // when
+        val javaDoc = target.getJavadoc(artifactCoordinates, file)
+
+        // then
+        assertThat(javaDoc).doesNotStartWith("JavaDoc not found for class")
+    }
+
 }

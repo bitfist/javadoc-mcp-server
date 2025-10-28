@@ -11,7 +11,7 @@ plugins {
 
 group = "io.github.bitfist"
 version = "0.0.1-SNAPSHOT"
-description = "MCP Server for JavaDoc"
+description = "MCP Server for Javadoc"
 
 java {
 	toolchain {
@@ -56,6 +56,7 @@ dependencies {
 
     // region Test
     testImplementation(libs.test.assertj)
+    testImplementation(libs.test.mockitoKotlin)
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

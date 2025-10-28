@@ -7,8 +7,8 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableConfigurationProperties(JavadocMcpConfiguration::class)
-class JavaDocMcpServerApplication
+class JavadocMcpServerApplication
 
 fun main(args: Array<String>) {
-	runApplication<JavaDocMcpServerApplication>(*args)
+	runApplication<JavadocMcpServerApplication>(*args)
 }
