@@ -1,13 +1,14 @@
-package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.file
+package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.eclipse
 
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
-import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactRepository
+import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifacts
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils
+import org.eclipse.aether.DefaultRepositorySystemSession
 import org.eclipse.aether.RepositorySystem
 import org.eclipse.aether.RepositorySystemSession
 import org.eclipse.aether.artifact.DefaultArtifact
 import org.eclipse.aether.connector.basic.BasicRepositoryConnectorFactory
-import org.eclipse.aether.impl.DefaultServiceLocator
 import org.eclipse.aether.repository.LocalRepository
 import org.eclipse.aether.repository.RemoteRepository
 import org.eclipse.aether.resolution.ArtifactRequest
@@ -24,8 +25,10 @@ import org.springframework.stereotype.Repository
 import java.io.File
 import java.nio.file.Files
 
+private val logger = KotlinLogging.logger {}
+
 @Repository
-internal class DefaultMavenArtifactRepository : MavenArtifactRepository {
+internal class AetherMavenArtifacts : MavenArtifacts {
 
     private val localRepositoryDirectory: File = Files.createTempDirectory("maven-javadoc").toFile()
     private val system: RepositorySystem = newRepositorySystem()
@@ -49,10 +52,10 @@ internal class DefaultMavenArtifactRepository : MavenArtifactRepository {
 
         try {
             val result: ArtifactResult = system.resolveArtifact(session, request)
-
-            val file = result.artifact.file
-            return file
-        } catch (e: ArtifactResolutionException) {
+            logger.info { "Downloaded Javadoc JAR for $artifactCoordinates to ${result.artifact.file}" }
+            return result.artifact.file
+        } catch (_: ArtifactResolutionException) {
+            logger.error { "Failed to download Javadoc JAR for $artifactCoordinates" }
             throw IllegalArgumentException("Javadoc JAR not found for $groupId:$artifactId:$version")
         }
     }
@@ -66,7 +69,7 @@ internal class DefaultMavenArtifactRepository : MavenArtifactRepository {
     }
 
     private fun newRepositorySystemSession(system: RepositorySystem, localRepoDir: File): RepositorySystemSession {
-        val session = org.eclipse.aether.DefaultRepositorySystemSession()
+        val session = DefaultRepositorySystemSession()
         val localRepo = LocalRepository(localRepoDir)
         session.localRepositoryManager = system.newLocalRepositoryManager(session, localRepo)
         session.setArtifactDescriptorPolicy(SimpleArtifactDescriptorPolicy(true, true))

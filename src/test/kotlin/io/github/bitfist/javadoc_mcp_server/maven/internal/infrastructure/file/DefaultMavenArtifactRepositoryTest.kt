@@ -1,7 +1,7 @@
 package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.file
 
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
-import org.eclipse.aether.resolution.ArtifactResolutionException
+import io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.eclipse.AetherMavenArtifacts
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -13,7 +13,7 @@ import kotlin.test.assertTrue
 @DisplayName("🔧 DefaultMavenArtifactRepository Tests")
 class DefaultMavenArtifactRepositoryTest {
 
-    private val repository: DefaultMavenArtifactRepository = DefaultMavenArtifactRepository()
+    private val repository: AetherMavenArtifacts = AetherMavenArtifacts()
 
     @AfterEach
     fun tearDown() {

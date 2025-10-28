@@ -52,9 +52,32 @@ models to understand and explain Java APIs.
 3. **Run the server**
    ```bash
    ./gradlew bootRun
-   # or
-   java -jar target/javadoc-mcp-server-*.jar
    ```
+### Configuration
+
+Configure additional repositories in `~/.javadoc-mcp/repositories.json`:
+
+```json
+{
+    "mavenCentral": {
+        "url": "https://repo1.maven.org/maven2/"
+    },
+    "myPrivateRepository": {
+        "url": "https://your-private-repo.com/repository/maven-public/",
+        "username": "your-username",
+        "password": "your-password"
+    }
+}
+```
+
+### Docker
+
+To build the docker image, run:
+   ```bash
+   ./gradlew bootBuildImage
+   ```
+The created image runs the application using the `container` profile, which means that additional repository configuration
+is loaded from `/opt/javadoc-mcp/init.d/repositories.json` instead of `~/.javadoc-mcp/repositories.json`.
 
 ## 🔧 How It Works
 

@@ -39,6 +39,7 @@ dependencies {
 
     // region Kotlin specific
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation(libs.kotlin.logging)
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     // endregion
 
@@ -79,6 +80,10 @@ kotlin {
 	}
 }
 
+springBoot {
+    buildInfo()
+}
+
 tasks.bootBuildImage {
     environment.put("BPE_SPRING_PROFILES_ACTIVE", "container")
 }
@@ -92,8 +97,8 @@ tasks.withType<Test> {
 // region Release
 
 gitHubRelease {
-    projectName.set("JCEF Spring Boot Starter")
-    projectDescription.set("Spring Boot Starter for JCEF")
+    projectName.set("Javadoc MCP Server")
+    projectDescription.set("MCP Server for Javadoc")
     developer.set("bitfist")
     licenseFile.set(projectDir.resolve("LICENSE.txt"))
     license.set("The Apache License, Version 2.0")

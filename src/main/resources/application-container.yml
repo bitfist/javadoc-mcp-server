@@ -1,0 +1,3 @@
+javadoc-mcp:
+  repositories:
+    configuration-file: /opt/javadoc-mcp/init.d/repositories.json

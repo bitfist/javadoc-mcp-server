@@ -2,7 +2,7 @@ package io.github.bitfist.javadoc_mcp_server.javadoc.internal.infrastructure.fil
 
 import io.github.bitfist.javadoc_mcp_server.javadoc.JavadocProvider
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
-import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactRepository
+import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifacts
 import org.springframework.stereotype.Component
 import java.io.File
 import java.nio.file.Files
@@ -14,7 +14,7 @@ import kotlin.io.path.readText
 
 @Component
 private class DefaultJavadocProvider(
-    private val mavenArtifactRepository: MavenArtifactRepository,
+    private val mavenArtifacts: MavenArtifacts,
     private val configurationProperties: JavadocProviderConfigurationProperties
 ) : JavadocProvider {
 
@@ -31,7 +31,7 @@ private class DefaultJavadocProvider(
 
         // If the artifact folder doesn't exist, download and extract the Javadoc jar
         if (!artifactFolder.exists()) {
-            val javaDocJar = mavenArtifactRepository.getJavaDocJar(artifactCoordinates)
+            val javaDocJar = mavenArtifacts.getJavaDocJar(artifactCoordinates)
             extractJavaDocJar(javaDocJar, artifactFolder)
         }
 

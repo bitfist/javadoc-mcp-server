@@ -2,7 +2,7 @@ package io.github.bitfist.javadoc_mcp_server.maven
 
 import java.io.File
 
-interface MavenArtifactRepository {
+interface MavenArtifacts {
 
     fun getJavaDocJar(artifactCoordinates: ArtifactCoordinates) : File
 }
