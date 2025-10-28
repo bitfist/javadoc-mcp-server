@@ -2,7 +2,7 @@
 kotlin = "1.9.25"
 
 [libraries]
-spring-modulith-bom     = { module = "org.springframework.modulith:spring-modulith-bom",  version = "1.4.3"  }
+spring-modulith-bom     = { module = "org.springframework.modulith:spring-modulith-bom",  version = "1.4.4"  }
 spring-ai-bom           = { module = "org.springframework.ai:spring-ai-bom",              version = "1.0.3"  }
 
 converter-html2markdown = { module = "com.vladsch.flexmark:flexmark-html2md-converter",   version = "0.64.8" }
