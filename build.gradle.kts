@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
-    alias(libs.plugins.graalvm)
     id("io.github.bitfist.gradle-github-support.release")
     idea
 }
@@ -21,9 +20,6 @@ idea {
         isDownloadSources = true
     }
 }
-
-extra["springAiVersion"] = "1.0.3"
-extra["springModulithVersion"] = "1.4.3"
 
 // endregion
 
