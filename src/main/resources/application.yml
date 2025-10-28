@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: javadoc-mcp-server
+    version: 1.0.0-SNAPSHOT
+  ai:
+    mcp:
+      server:
+        name: ${spring.application.name}
+        capabilities:
+          completion: false
+          prompt: false
+          resource: false
+        type: async
+        version: ${spring.application.version}
