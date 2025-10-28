@@ -168,9 +168,7 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 
 ## ✅ Todo
 
-- [ ] Implement configuration options (eg additional repositories)
 - [ ] Add native support
-- [ ] Add proper container support (init.d folder where repository configuration can be placed)
 
 ## 📧 Contact
 
