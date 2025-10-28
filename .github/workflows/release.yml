@@ -58,10 +58,6 @@ jobs:
           ./gradlew printChangeLog --file $(pwd)/changelog.md
           echo "RELEASE_VERSION=$(git tag --points-at HEAD)" >> $GITHUB_ENV
 
-      - name: Publish Maven artifacts to GitHub Packages
-        if: env.is_released == 'false'
-        run: ./gradlew publishAllPublicationsToGitHubPackagesRepository
-
       - name: Create GitHub release
         uses: ncipollo/release-action@v1
         if: env.is_released == 'false'
