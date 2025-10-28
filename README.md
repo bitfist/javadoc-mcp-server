@@ -34,6 +34,10 @@ models to understand and explain Java APIs.
 
 ### Installation
 
+> [!IMPORTANT]  
+> This project uses dependencies provided from GitHub. You therefore need to set your GitHub user `GPR_USER` and
+> personal access token `GPR_TOKEN` in your `~/.gradle/gradle.properties`
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/yourusername/javadoc-mcp-server.git
