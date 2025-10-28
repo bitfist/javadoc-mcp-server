@@ -2,6 +2,7 @@ package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.eclip
 
 import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
 import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifacts
+import io.github.bitfist.javadoc_mcp_server.maven.MavenRepositories
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils
 import org.eclipse.aether.DefaultRepositorySystemSession
@@ -19,6 +20,7 @@ import org.eclipse.aether.spi.connector.transport.TransporterFactory
 import org.eclipse.aether.supplier.RepositorySystemSupplier
 import org.eclipse.aether.transport.file.FileTransporterFactory
 import org.eclipse.aether.transport.http.HttpTransporterFactory
+import org.eclipse.aether.util.repository.AuthenticationBuilder
 import org.eclipse.aether.util.repository.SimpleArtifactDescriptorPolicy
 import org.eclipse.aether.util.repository.SimpleResolutionErrorPolicy
 import org.springframework.stereotype.Repository
@@ -28,15 +30,27 @@ import java.nio.file.Files
 private val logger = KotlinLogging.logger {}
 
 @Repository
-internal class AetherMavenArtifacts : MavenArtifacts {
+internal class AetherMavenArtifacts(mavenRepositories: MavenRepositories) : MavenArtifacts {
 
     private val localRepositoryDirectory: File = Files.createTempDirectory("maven-javadoc").toFile()
     private val system: RepositorySystem = newRepositorySystem()
     private val session: RepositorySystemSession = newRepositorySystemSession(system, localRepositoryDirectory)
-    private val repositories = listOf(
-        RemoteRepository.Builder("central", "default", "https://repo1.maven.org/maven2/").build(),
-        RemoteRepository.Builder("local", "default", "file://${System.getProperty("user.home")}/.m2/repository").build()
-    )
+    private val repositories: List<RemoteRepository>
+
+    init {
+        val defaultRepositories = listOf(
+            RemoteRepository.Builder("central", "default", "https://repo1.maven.org/maven2/").build(),
+            RemoteRepository.Builder("local", "default", "file://${System.getProperty("user.home")}/.m2/repository").build()
+        )
+        val configuredRepositories = mavenRepositories.getAll().map { repository ->
+            val builder = RemoteRepository.Builder(repository.name, "default", repository.url)
+            if (repository.username != null && repository.password != null) {
+                builder.setAuthentication(AuthenticationBuilder().addSecret(repository.username, repository.password).build())
+            }
+            builder.build()
+        }
+        repositories = defaultRepositories + configuredRepositories
+    }
 
     /**
      * Downloads the Javadoc JAR for a given artifact coordinate.

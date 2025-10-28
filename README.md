@@ -117,7 +117,7 @@ For the requested class:
 
 - ✅ First request: Downloads and extracts the entire Javadoc JAR
 - ⚡ Subsequent requests: Serves directly from local cache
-- 💾 Cache location: `javadoc-mcp.local-repository` configuration
+- 💾 Cache location: `~/javadoc-mcp/repository`
 
 ## 📋 API Reference
 
