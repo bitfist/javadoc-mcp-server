@@ -1,3 +1,5 @@
+import java.net.URI
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
