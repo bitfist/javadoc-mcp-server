@@ -8,7 +8,7 @@ spring-ai-bom           = { module = "org.springframework.ai:spring-ai-bom",    
 converter-html2markdown = { module = "com.vladsch.flexmark:flexmark-html2md-converter",   version = "0.64.8" }
 maven-resolver-supplier = { module = "org.apache.maven.resolver:maven-resolver-supplier", version = "1.9.24" }
 maven-resolver-provider = { module = "org.apache.maven:maven-resolver-provider",          version = "3.9.11" }
-kotlin-logging          = { module = "io.github.oshai:kotlin-logging-jvm",                version = "7.0.3"  }
+kotlin-logging          = { module = "io.github.oshai:kotlin-logging-jvm",                version = "7.0.13"  }
 
 test-assertj            = { module = "org.assertj:assertj-core",                          version = "3.27.6" }
 test-mockitoKotlin      = { module = "org.mockito.kotlin:mockito-kotlin",                 version = "6.1.0"  }
