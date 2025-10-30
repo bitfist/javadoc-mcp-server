@@ -4,5 +4,5 @@ import java.io.File
 
 interface MavenArtifacts {
 
-    fun getJavaDocJar(artifactCoordinates: ArtifactCoordinates) : File
+    fun getJavaDocJar(mavenArtifactCoordinates: MavenArtifactCoordinates) : File
 }

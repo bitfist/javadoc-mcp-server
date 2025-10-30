@@ -1,6 +1,7 @@
 package io.github.bitfist.javadoc_mcp_server.maven.internal.infrastructure.eclipse
 
-import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
+import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactCoordinates
+import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactNotFoundException
 import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifacts
 import io.github.bitfist.javadoc_mcp_server.maven.MavenRepositories
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -56,21 +57,21 @@ internal class AetherMavenArtifacts(mavenRepositories: MavenRepositories) : Mave
      * Downloads the Javadoc JAR for a given artifact coordinate.
      * Returns the local file path of the downloaded JAR.
      */
-    override fun getJavaDocJar(artifactCoordinates: ArtifactCoordinates): File {
-        val groupId = artifactCoordinates.groupId
-        val artifactId = artifactCoordinates.artifactId
-        val version = artifactCoordinates.version
+    override fun getJavaDocJar(mavenArtifactCoordinates: MavenArtifactCoordinates): File {
+        val groupId = mavenArtifactCoordinates.groupId
+        val artifactId = mavenArtifactCoordinates.artifactId
+        val version = mavenArtifactCoordinates.version
 
         val javadocArtifact = DefaultArtifact("$groupId:$artifactId:jar:javadoc:$version")
         val request = ArtifactRequest(javadocArtifact, repositories, null)
 
         try {
             val result: ArtifactResult = system.resolveArtifact(session, request)
-            logger.info { "Downloaded Javadoc JAR for $artifactCoordinates to ${result.artifact.file}" }
+            logger.info { "Downloaded Javadoc JAR for $mavenArtifactCoordinates to ${result.artifact.file}" }
             return result.artifact.file
         } catch (_: ArtifactResolutionException) {
-            logger.error { "Failed to download Javadoc JAR for $artifactCoordinates" }
-            throw IllegalArgumentException("Javadoc JAR not found for $groupId:$artifactId:$version")
+            logger.error { "Failed to download Javadoc JAR for $mavenArtifactCoordinates" }
+            throw MavenArtifactNotFoundException(mavenArtifactCoordinates)
         }
     }
 

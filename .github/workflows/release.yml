@@ -37,7 +37,7 @@ jobs:
         if: env.is_released == 'false'
         with:
           java-version: '21'
-          distribution: 'liberica'
+          distribution: 'graalvm'
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4

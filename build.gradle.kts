@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
     alias(libs.plugins.spring.boot)
+    alias(libs.plugins.graalvm)
     id("io.github.bitfist.gradle-github-support.release")
     idea
 }
@@ -27,7 +28,7 @@ idea {
 
 repositories {
     mavenLocal()
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
@@ -53,7 +54,7 @@ dependencies {
     implementation(libs.converter.html2markdown)
     // endregion
 
-    // region Maven
+    // region Maven resolver
     implementation(libs.maven.resolver.provider)
     implementation(libs.maven.resolver.supplier)
     // region
@@ -69,15 +70,13 @@ dependencies {
 }
 
 java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
-    }
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 kotlin {
-	compilerOptions {
-		freeCompilerArgs.addAll("-Xjsr305=strict")
-	}
+    compilerOptions {
+        freeCompilerArgs.addAll("-Xjsr305=strict")
+    }
 }
 
 springBoot {
@@ -86,10 +85,15 @@ springBoot {
 
 tasks.bootBuildImage {
     environment.put("BPE_SPRING_PROFILES_ACTIVE", "container")
+    environment.put("BP_NATIVE_IMAGE_BUILD_ARGUMENTS", "--features=io.github.bitfist.javadoc_mcp_server.javadoc.internal.platform.graalvm.FlexmarkSubstitutionsFeature")
+}
+
+graalvmNative {
+    toolchainDetection.set(true)
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 // endregion

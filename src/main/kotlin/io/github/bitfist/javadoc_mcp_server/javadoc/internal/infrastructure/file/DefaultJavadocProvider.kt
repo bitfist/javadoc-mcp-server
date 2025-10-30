@@ -1,9 +1,10 @@
 package io.github.bitfist.javadoc_mcp_server.javadoc.internal.infrastructure.file
 
+import io.github.bitfist.javadoc_mcp_server.javadoc.JavadocNotFoundException
 import io.github.bitfist.javadoc_mcp_server.javadoc.JavadocProvider
-import io.github.bitfist.javadoc_mcp_server.maven.ArtifactCoordinates
+import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifactCoordinates
 import io.github.bitfist.javadoc_mcp_server.maven.MavenArtifacts
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -12,26 +13,26 @@ import java.util.zip.ZipInputStream
 import kotlin.io.path.exists
 import kotlin.io.path.readText
 
-@Component
+@Service
 private class DefaultJavadocProvider(
     private val mavenArtifacts: MavenArtifacts,
     private val configurationProperties: JavadocProviderConfigurationProperties
 ) : JavadocProvider {
 
     override fun getJavadoc(
-        artifactCoordinates: ArtifactCoordinates,
+        mavenArtifactCoordinates: MavenArtifactCoordinates,
         fullyQualifiedClassName: String
     ): String {
         val artifactFolder = Paths.get(
             configurationProperties.repositoryPath,
-            artifactCoordinates.groupId,
-            artifactCoordinates.artifactId,
-            artifactCoordinates.version
+            mavenArtifactCoordinates.groupId,
+            mavenArtifactCoordinates.artifactId,
+            mavenArtifactCoordinates.version
         )
 
         // If the artifact folder doesn't exist, download and extract the Javadoc jar
         if (!artifactFolder.exists()) {
-            val javaDocJar = mavenArtifacts.getJavaDocJar(artifactCoordinates)
+            val javaDocJar = mavenArtifacts.getJavaDocJar(mavenArtifactCoordinates)
             extractJavaDocJar(javaDocJar, artifactFolder)
         }
 
@@ -41,7 +42,7 @@ private class DefaultJavadocProvider(
         val javaDocFile = artifactFolder.resolve("$packagePath/$simpleClassName.html")
 
         if (!javaDocFile.exists()) {
-            return "Javadoc not found for class $fullyQualifiedClassName in artifact $artifactCoordinates"
+            throw JavadocNotFoundException(mavenArtifactCoordinates, fullyQualifiedClassName)
         }
 
         return javaDocFile.readText()

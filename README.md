@@ -168,8 +168,6 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 
 ## ✅ Todo
 
-- [ ] Add native support
-  - Right now Flexmark does not cooperate
 - [ ] Release Container Image
 
 ## 📧 Contact
