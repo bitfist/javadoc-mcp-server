@@ -32,11 +32,11 @@ jobs:
             echo "is_released=false" >> $GITHUB_ENV
           fi
 
-      - name: Set up JDK 25
+      - name: Set up JDK 21
         uses: actions/setup-java@v5
         if: env.is_released == 'false'
         with:
-          java-version: '25'
+          java-version: '21'
           distribution: 'graalvm'
 
       - name: Setup Gradle
