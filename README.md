@@ -168,6 +168,7 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 
 ## ✅ Todo
 
+- [ ] Upgrade to Java 25 as soon as Kotlin 2.3.0 is released
 - [ ] Release Container Image
 
 ## 📧 Contact

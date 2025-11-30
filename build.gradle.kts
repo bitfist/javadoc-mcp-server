@@ -12,7 +12,6 @@ plugins {
 // region Setup
 
 group = "io.github.bitfist"
-version = "0.0.1-SNAPSHOT"
 description = "MCP Server for Javadoc"
 
 idea {
@@ -70,6 +69,9 @@ dependencies {
 }
 
 java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
     sourceCompatibility = JavaVersion.VERSION_21
 }
 
