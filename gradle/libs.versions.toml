@@ -6,7 +6,7 @@ spring-modulith-bom     = { module = "org.springframework.modulith:spring-moduli
 spring-ai-bom           = { module = "org.springframework.ai:spring-ai-bom",              version = "1.1.2"  }
 
 converter-html2markdown = { module = "com.vladsch.flexmark:flexmark-html2md-converter",   version = "0.64.8" }
-maven-resolver-supplier = { module = "org.apache.maven.resolver:maven-resolver-supplier", version = "1.9.24" }
+maven-resolver-supplier = { module = "org.apache.maven.resolver:maven-resolver-supplier", version = "1.9.25" }
 maven-resolver-provider = { module = "org.apache.maven:maven-resolver-provider",          version = "3.9.11" }
 kotlin-logging          = { module = "io.github.oshai:kotlin-logging-jvm",                version = "7.0.13" }
 
