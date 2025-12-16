@@ -7,8 +7,15 @@ import org.springframework.stereotype.Service
 @Service
 private class MarkdownJavadocConverter : JavadocConverter {
 
+    private val garbageMarker = "\nPackage ["
+
     private val html2markdownConverter = FlexmarkHtmlConverter.builder().build()
 
-    override fun convert(html: String): String = html2markdownConverter.convert(html)
+    override fun convert(html: String): String {
+        val markdown = html2markdownConverter.convert(html)
+        // remove garbage
+        val cleanMarkdown = markdown.substring(markdown.indexOf(garbageMarker) + 1)
+        return cleanMarkdown
+    }
 
 }
