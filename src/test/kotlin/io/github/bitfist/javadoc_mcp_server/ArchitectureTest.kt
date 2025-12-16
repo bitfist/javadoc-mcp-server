@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test
 import org.springframework.modulith.core.ApplicationModules
 import org.springframework.modulith.docs.Documenter
 
-class ArchitectureDocumentationTest {
+class ArchitectureTest {
+
     @Test
     fun writeDocumentationSnippets() {
         val modules = ApplicationModules.of(JavadocMcpServerApplication::class.java).verify();

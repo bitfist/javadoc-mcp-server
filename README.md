@@ -3,7 +3,7 @@
 > A Spring AI-powered Model Context Protocol (MCP) server that provides AI assistants with seamless access to Java
 > library documentation
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.2+-7F52FF.svg?logo=kotlin)](https://kotlinlang.org/)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.3+-7F52FF.svg?logo=kotlin)](https://kotlinlang.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.x-6DB33F.svg?logo=spring)](https://spring.io/projects/spring-boot)
 ![License](https://img.shields.io/badge/License-Apache%20License%20Version%202.0-blue)
 [![Gradle build](https://github.com/bitfist/javadoc-mcp-server/actions/workflows/test.yml/badge.svg)](https://github.com/bitfist/javadoc-mcp-server/actions/workflows/test.yml)
@@ -148,7 +148,7 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 ## 🛠️ Tools
 
 - [MCP Inspector](https://github.com/modelcontextprotocol/inspector)
-  ```bash
+  ```shell
   npx @modelcontextprotocol/inspector
   ```
 
@@ -168,7 +168,6 @@ Retrieves Javadoc documentation for a specific class from a Maven artifact.
 
 ## ✅ Todo
 
-- [ ] Upgrade to Java 25 as soon as Kotlin 2.3.0 is released
 - [ ] Upgrade to Spring AI 2 scheduled for 20. Feb 2026
 - [ ] Release Container Image
 
