@@ -10,7 +10,7 @@ maven-resolver-supplier = { module = "org.apache.maven.resolver:maven-resolver-s
 maven-resolver-provider = { module = "org.apache.maven:maven-resolver-provider",          version = "3.9.12" }
 kotlin-logging          = { module = "io.github.oshai:kotlin-logging-jvm",                version = "7.0.14" }
 
-test-assertj            = { module = "org.assertj:assertj-core",                          version = "3.27.6" }
+test-assertj            = { module = "org.assertj:assertj-core",                          version = "3.27.7" }
 test-mockitoKotlin      = { module = "org.mockito.kotlin:mockito-kotlin",                 version = "6.2.1"  }
 
 [plugins]
