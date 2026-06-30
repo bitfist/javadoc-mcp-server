@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.21"
+kotlin = "2.4.0"
 
 [libraries]
 spring-modulith-bom     = { module = "org.springframework.modulith:spring-modulith-bom",  version = "2.1.0"  }
